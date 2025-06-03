@@ -2,6 +2,7 @@ import { Box, styled } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router";
 import NavList from "./NavList";
+import LibraryHeader from "./LibraryHeader";
 
 const Layout = styled("div")({
   display: "flex",
@@ -36,6 +37,9 @@ const AppLayout = () => {
       <Sidebar>
         <ContentBox>
           <NavList />
+        </ContentBox>
+        <ContentBox height="100%">
+          <LibraryHeader />
         </ContentBox>
       </Sidebar>
       <Outlet />
