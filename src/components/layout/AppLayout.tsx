@@ -1,9 +1,9 @@
 import { Box, styled } from "@mui/material";
 import React from "react";
 import { Outlet } from "react-router";
-import NavList from "./NavList";
-import LibraryHeader from "./LibraryHead";
-import Library from "./Library";
+import NavList from "./components/NavList";
+import LibraryHeader from "./components/LibraryHead";
+import Library from "./components/Library";
 
 const Layout = styled("div")({
   display: "flex",
