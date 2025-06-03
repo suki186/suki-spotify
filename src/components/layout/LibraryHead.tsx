@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, styled, Typography } from "@mui/material";
+import { Button, Box, styled, Typography } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -10,6 +10,10 @@ const HeaderContainer = styled("div")({
   justifyContent: "space-between",
 });
 
+const HeaderAddButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.primary.main,
+}));
+
 const LibraryHeader = () => {
   return (
     <HeaderContainer>
@@ -19,7 +23,9 @@ const LibraryHeader = () => {
           Your Library
         </Typography>
       </Box>
-      <AddIcon sx={(theme) => ({ color: theme.palette.primary.main })} />
+      <HeaderAddButton>
+        <AddIcon />
+      </HeaderAddButton>
     </HeaderContainer>
   );
 };
