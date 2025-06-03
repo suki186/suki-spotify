@@ -10,6 +10,7 @@ const Layout = styled("div")({
   display: "flex",
   height: "100vh",
   padding: "8px",
+  gap: "8px",
 });
 
 const Sidebar = styled("div")(({ theme }) => ({
@@ -21,6 +22,7 @@ const Sidebar = styled("div")(({ theme }) => ({
     // 휴대폰에서는 숨김
     display: "none",
   },
+  gap: "8px",
 }));
 
 const ContentBox = styled(Box)(({ theme }) => ({
@@ -29,8 +31,6 @@ const ContentBox = styled(Box)(({ theme }) => ({
   color: theme.palette.text.primary,
   width: "100%",
   padding: "8px",
-  marginBottom: "8px",
-  marginRight: " 8px",
 }));
 
 const AppLayout = () => {
