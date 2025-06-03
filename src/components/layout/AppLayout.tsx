@@ -4,6 +4,7 @@ import { Outlet } from "react-router";
 import NavList from "./components/NavList";
 import LibraryHeader from "./components/LibraryHead";
 import Library from "./components/Library";
+import Navbar from "./components/Navbar";
 
 const Layout = styled("div")({
   display: "flex",
@@ -44,7 +45,10 @@ const AppLayout = () => {
           <Library />
         </ContentBox>
       </Sidebar>
-      <Outlet />
+      <ContentBox>
+        <Navbar />
+        <Outlet />
+      </ContentBox>
     </Layout>
   );
 };
