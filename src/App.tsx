@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LodingSpinner from "./components/common/LodingSpinner";
+import LodingSpinner from "./components/common/components/LodingSpinner";
 
 // 필요한 순간에만 불러와서 초기 로딩 빠름 -> 로딩 처리 필수(Suspense)
 const AppLayout = React.lazy(() => import("./components/layout/AppLayout"));
