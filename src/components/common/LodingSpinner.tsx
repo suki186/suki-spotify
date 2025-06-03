@@ -1,10 +1,13 @@
 import React from "react";
 import { HashLoader } from "react-spinners";
+import { useTheme } from "@mui/material/styles";
 
 const LodingSpinner = () => {
+  const theme = useTheme();
+
   return (
     <div>
-      <HashLoader color="#317645" size={30} />
+      <HashLoader color={theme.palette.primary.main} size={30} />
     </div>
   );
 };
