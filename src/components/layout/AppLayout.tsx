@@ -3,6 +3,7 @@ import React from "react";
 import { Outlet } from "react-router";
 import NavList from "./NavList";
 import LibraryHeader from "./LibraryHeader";
+import Library from "./Library";
 
 const Layout = styled("div")({
   display: "flex",
@@ -40,6 +41,7 @@ const AppLayout = () => {
         </ContentBox>
         <ContentBox height="100%">
           <LibraryHeader />
+          <Library />
         </ContentBox>
       </Sidebar>
       <Outlet />
