@@ -4,7 +4,7 @@ import LodingSpinner from "./components/common/components/LodingSpinner";
 
 // 필요한 순간에만 불러와서 초기 로딩 빠름 -> 로딩 처리 필수(Suspense)
 const AppLayout = React.lazy(() => import("./components/layout/AppLayout"));
-const HomePage = React.lazy(() => import("./pages/Homepage"));
+const HomePage = React.lazy(() => import("./pages/homepage/Homepage"));
 const SearchPage = React.lazy(() => import("./pages/SearchPage"));
 const SearchResultPage = React.lazy(() => import("./pages/SearchResultPage"));
 const PlaylistDetailPage = React.lazy(
