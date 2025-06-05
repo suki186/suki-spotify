@@ -29,6 +29,7 @@ const NewReleases = () => {
                 image={album.images[0].url}
                 name={album.name}
                 artistName={album.artists[0].name}
+                date={album.release_date}
               />
             </Grid>
           ))}

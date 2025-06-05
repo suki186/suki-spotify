@@ -9,6 +9,7 @@ const CardContainer = styled("div")(({ theme }) => ({
   height: "100%",
   padding: "12px",
   borderRadius: "8px",
+  border: `2px solid ${theme.palette.action.hover}`,
   "&:hover": {
     backgroundColor: theme.palette.action.hover,
     transform: "translate3d(0px, 0px, 0px)",
@@ -47,9 +48,10 @@ interface CardProps {
   name: string | undefined;
   image: string | undefined;
   artistName: string | undefined;
+  date: string | undefined;
 }
 
-const Card = ({ image, name, artistName }: CardProps) => {
+const Card = ({ image, name, artistName, date }: CardProps) => {
   return (
     <CardContainer>
       <div style={{ position: "relative" }}>
@@ -61,6 +63,9 @@ const Card = ({ image, name, artistName }: CardProps) => {
       <TextTypography variant="h2">{name || "No Name"}</TextTypography>
       <TextTypography variant="body1" color="text.secondary">
         {artistName || "No Artist"}
+      </TextTypography>
+      <TextTypography fontSize="10px" color="text.secondary" textAlign="end">
+        {date || "No Date"}
       </TextTypography>
     </CardContainer>
   );
