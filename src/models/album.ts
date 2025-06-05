@@ -3,7 +3,7 @@ import { ExternalUrls, Images, Restriction } from "./commonType";
 
 // NewReleases 정보
 export interface GetNewReleasesResponse {
-  album: {
+  albums: {
     href: string;
     limit: number;
     next: string;
