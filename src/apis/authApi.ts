@@ -1,6 +1,10 @@
 import axios from "axios";
-import { clientId, clientSecret } from "../configs/authConfig";
-import { ClientCredentialTokenResponse } from "../models/auth";
+import { CLIENT_ID, CLIENT_SECRET } from "../configs/authConfig";
+import {
+  ClientCredentialTokenResponse,
+  ExchangeTokenResponse,
+} from "../models/auth";
+import { REDIRECT_URL } from "../configs/commonConfig";
 
 const encodeBase64 = (data: string): string => {
   if (typeof window !== "undefined") {
@@ -25,7 +29,7 @@ export const getClientCredentailToken =
         {
           headers: {
             Authorization: `Basic ${encodeBase64(
-              clientId + ":" + clientSecret
+              CLIENT_ID + ":" + CLIENT_SECRET
             )}`,
             "Content-Type": "application/x-www-form-urlencoded",
           },
@@ -36,3 +40,32 @@ export const getClientCredentailToken =
       throw new Error("토큰 요청 실패.." + e);
     }
   };
+
+export const exchangeToken = async (
+  code: string,
+  codeVerifier: string
+): Promise<ExchangeTokenResponse> => {
+  try {
+    const url = "https://accounts.spotify.com/api/token";
+
+    if (!CLIENT_ID || !REDIRECT_URL) {
+      throw new Error("Missing required parameters");
+    }
+    const body = new URLSearchParams({
+      client_id: CLIENT_ID,
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: REDIRECT_URL,
+      code_verifier: codeVerifier,
+    });
+
+    const response = await axios.post(url, body, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+    return response.data;
+  } catch (e) {
+    throw new Error("Fail to fetch token " + e);
+  }
+};

@@ -1,7 +1,7 @@
 import { Typography, Grid } from "@mui/material";
 import React from "react";
 import useGetNewReleases from "../../../hooks/useGetNewReleases";
-import LoadingSpinner from "../../../components/common/components/LodingSpinner";
+import LoadingSpinner from "../../../components/common/components/LoadingSpinner";
 import ErrorMessage from "../../../components/common/components/ErrorMessage";
 import Card from "../../../components/common/components/Card";
 

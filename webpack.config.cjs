@@ -37,7 +37,12 @@ module.exports = (env, argv) => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "index.html"),
       }),
-      new Dotenv(),
+      new Dotenv({
+        path: isProduction ? ".env.production" : ".env.development",
+        defaults: ".env",
+        allowEmptyValues: true,
+        systemvars: true,
+      }),
     ],
     devServer: {
       port: 3000,

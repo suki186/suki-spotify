@@ -1,6 +1,7 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LodingSpinner from "./components/common/components/LodingSpinner";
+import LoadingSpinner from "./components/common/components/LoadingSpinner";
+import useExchangeToken from "./hooks/useExchangeToken";
 
 // 필요한 순간에만 불러와서 초기 로딩 빠름 -> 로딩 처리 필수(Suspense)
 const AppLayout = React.lazy(() => import("./components/layout/AppLayout"));
@@ -41,10 +42,23 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App = () => (
-  <Suspense fallback={<LodingSpinner />}>
-    <RouterProvider router={router} />
-  </Suspense>
-);
+function App() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get("code");
+  const codeVerifier = localStorage.getItem("code_verifier");
+  const { mutate: exchangeToken } = useExchangeToken();
+
+  useEffect(() => {
+    if (code && codeVerifier) {
+      exchangeToken({ code, codeVerifier });
+    }
+  }, [code, codeVerifier, exchangeToken]);
+
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
+}
 
 export default App;

@@ -11,7 +11,7 @@ const useGetNewReleases = () => {
     queryKey: ["new-releases"], // 고유 key
     queryFn: async () => {
       if (!clientCredentialToken) {
-        throw new Error("clientCredentialToken이 undefied");
+        throw new Error("clientCredentialToken이 undefined");
       }
       return getNewReleases(clientCredentialToken); // albumApi.ts
     },
