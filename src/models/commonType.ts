@@ -11,3 +11,13 @@ export interface Images {
 export interface Restriction {
   reason?: string;
 }
+
+export interface Followers {
+  href: string | null;
+  total: number;
+}
+
+export interface ExplicitContent {
+  filter_enabled?: boolean;
+  filter_locked?: boolean;
+}
