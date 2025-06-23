@@ -36,7 +36,7 @@ const Library = () => {
   } = useGetCurrentUserPlaylists({
     limit: 10,
   });
-  console.log("playlist", data);
+  //console.log("playlist", data);
 
   useEffect(() => {
     // inView가 true이면 다음페이지(fetchNextPage) 가져오기

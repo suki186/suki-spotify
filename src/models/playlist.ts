@@ -9,10 +9,11 @@ export interface GetCurrentUserPlaylistRequest {
 // key값이 없어서 interface 안됨(객체)
 export type GetCurrentUserPlaylistResponse = ApiResponse<SimplifiedPlaylist>;
 
-export interface SimplifiedPlaylist {
+// SimplifiedPlaylist, DetailedPlaylist -> tracks만 다름
+export interface BasePlaylist {
   collaborative?: boolean;
-  description?: string;
-  external_urls: ExternalUrls;
+  description?: string | null;
+  external_urls?: ExternalUrls;
   href?: string;
   id?: string;
   images?: Images[];
@@ -20,10 +21,37 @@ export interface SimplifiedPlaylist {
   owner: Owner;
   public?: boolean;
   snapshot_id?: string;
+  type?: "playlist";
+  url?: string;
+}
+export interface SimplifiedPlaylist extends BasePlaylist {
   tracks?: {
     href?: string;
     total?: number;
   };
-  type?: string;
-  url?: string;
+}
+export interface DetailedPlaylist extends BasePlaylist {
+  tracks?: ApiResponse<PlaylistTrack>;
+}
+
+export interface GetPlaylistRequest {
+  playlist_id: string;
+  market?: string;
+  fields?: string;
+  additional_types?: string;
+}
+
+export type GetPlaylistItemsResponse = ApiResponse<PlaylistTrack>;
+
+export interface PlaylistTrack {
+  added_at?: string | null;
+  added_by?: {
+    external_urls?: ExternalUrls;
+    href?: string;
+    id?: string;
+    type?: string;
+    uri?: string;
+  };
+  is_local?: boolean;
+  //track: Track | Episode;
 }
