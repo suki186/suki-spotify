@@ -9,7 +9,7 @@ const HomePage = React.lazy(() => import("./pages/homepage/Homepage"));
 const SearchPage = React.lazy(() => import("./pages/SearchPage"));
 const SearchResultPage = React.lazy(() => import("./pages/SearchResultPage"));
 const PlaylistDetailPage = React.lazy(
-  () => import("./pages/PlaylistDetailPage")
+  () => import("./pages/playlistDetailPage/PlaylistDetailPage")
 );
 const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
 
