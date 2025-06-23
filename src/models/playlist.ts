@@ -1,5 +1,6 @@
 import { ApiResponse } from "./apiResponse";
 import { ExternalUrls, Images, Owner } from "./commonType";
+import { Episode, Track } from "./track";
 
 export interface GetCurrentUserPlaylistRequest {
   limit?: number;
@@ -41,6 +42,11 @@ export interface GetPlaylistRequest {
   additional_types?: string;
 }
 
+export interface GetPlaylistItemsRequest extends GetPlaylistRequest {
+  limit?: number;
+  offset?: number;
+}
+
 export type GetPlaylistItemsResponse = ApiResponse<PlaylistTrack>;
 
 export interface PlaylistTrack {
@@ -51,7 +57,7 @@ export interface PlaylistTrack {
     id?: string;
     type?: string;
     uri?: string;
-  };
+  } | null;
   is_local?: boolean;
-  //track: Track | Episode;
+  track: Track | Episode;
 }

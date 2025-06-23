@@ -8,12 +8,15 @@ interface PlaylistProps {
 }
 
 const Playlist = ({ playlists }: PlaylistProps) => {
-  const [selectedId, setSelectedId] = useState<string>("");
+  const [selectedId, setSelectedId] = useState<string>(""); // 클릭 상태
   const navigate = useNavigate();
+
+  // 플레이리스트 클릭
   const handleItemClick = (id: string) => {
     setSelectedId(id);
     navigate(`/playlist/${id}`);
   };
+
   return (
     <div>
       {playlists.map((item) => (
