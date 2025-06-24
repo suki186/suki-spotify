@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, useParams } from "react-router";
 import useGetPlaylist from "../../hooks/useGetPlaylist";
 import {
   Box,
   Grid,
   styled,
-  Table,
   TableBody,
   TableCell,
+  Table,
+  TableContainer,
   TableHead,
   TableRow,
   Typography,
@@ -17,11 +18,12 @@ import LoadingSpinner from "../../components/common/components/LoadingSpinner";
 import ErrorMessage from "../../components/common/components/ErrorMessage";
 import DesktopPlaylistItem from "./components/DesktopPlaylistItem";
 import { PAGE_LIMIT } from "../../configs/commonConfig";
+import { useInView } from "react-intersection-observer";
 
 const PlaylistHeader = styled(Grid)({
   display: "flex",
   alignItems: "center",
-  background: " linear-gradient(transparent 0, rgba(0, 0, 0, .5) 100%)",
+  background: " linear-gradient(transparent 0, rgba(36, 134, 209, 0.5) 100%)",
   padding: "16px",
 });
 
@@ -55,9 +57,25 @@ const ResponsiveTypography = styled(Typography)(({ theme }) => ({
   },
 }));
 
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+  background: theme.palette.background.paper,
+  color: theme.palette.common.white,
+  maxHeight: "calc(100vh - 390px)",
+  height: "100%",
+  borderRadius: "8px",
+  overflowY: "auto",
+  "&::-webkit-scrollbar": {
+    display: "none",
+    msOverflowStyle: "none", // IE and Edge
+    scrollbarWidth: "none", // Firefox
+  },
+  marginTop: "8px",
+}));
+
 const PlaylistDetailPage = () => {
   const { id } = useParams<{ id: string }>();
   const { data: playlist } = useGetPlaylist({ playlist_id: id ?? "" });
+  const { ref, inView } = useInView();
 
   const {
     data: playlistItems,
@@ -68,6 +86,13 @@ const PlaylistDetailPage = () => {
     fetchNextPage,
   } = useGetPlaylistItems({ playlist_id: id ?? "", limit: PAGE_LIMIT });
   console.log("playlist", playlistItems);
+
+  useEffect(() => {
+    // inView가 true이면 다음페이지(fetchNextPage) 가져오기
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
 
   if (id === undefined) return <Navigate to="/" />; // url에 id 없을 경우
 
@@ -116,30 +141,34 @@ const PlaylistDetailPage = () => {
       {playlist?.tracks?.total === 0 ? (
         <Typography>Search</Typography>
       ) : (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>#</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Album</TableCell>
-              <TableCell>Date added</TableCell>
-              <TableCell>Duration</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {playlistItems?.pages.map((page, pIn) =>
-              page.items.map((item, iIn) => {
-                return (
-                  <DesktopPlaylistItem
-                    key={iIn}
-                    item={item}
-                    index={pIn * PAGE_LIMIT + iIn + 1} // 넘버링(#)
-                  />
-                );
-              })
-            )}
-          </TableBody>
-        </Table>
+        <StyledTableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell>Title</TableCell>
+                <TableCell>Album</TableCell>
+                <TableCell>Date added</TableCell>
+                <TableCell>Duration</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {playlistItems?.pages.map((page, pIn) =>
+                page.items.map((item, iIn) => {
+                  return (
+                    <DesktopPlaylistItem
+                      key={iIn}
+                      item={item}
+                      index={pIn * PAGE_LIMIT + iIn + 1} // 넘버링(#)
+                    />
+                  );
+                })
+              )}
+              <TableRow sx={{ height: "5px" }} ref={ref} />
+              {isFetchingNextPage && <LoadingSpinner />}
+            </TableBody>
+          </Table>
+        </StyledTableContainer>
       )}
     </>
   );
