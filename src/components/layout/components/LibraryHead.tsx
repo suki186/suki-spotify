@@ -2,6 +2,8 @@ import React from "react";
 import { Button, Box, styled, Typography } from "@mui/material";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import AddIcon from "@mui/icons-material/Add";
+import useCreatePlaylist from "../../../hooks/useCreatePlaylist";
+import { getSpotifyAuthUrl } from "../../../utils/auth";
 
 const HeaderContainer = styled("div")({
   display: "flex",
@@ -15,6 +17,18 @@ const HeaderAddButton = styled(Button)(({ theme }) => ({
 }));
 
 const LibraryHeader = () => {
+  const { mutate: createPlaylist } = useCreatePlaylist();
+  const token = localStorage.getItem("access_token");
+
+  // 플레이리스트 만들기
+  const handleCreatePlaylist = () => {
+    if (token) {
+      createPlaylist({ name: "My Playlist" });
+    } else {
+      getSpotifyAuthUrl(); // 로그인하기
+    }
+  };
+
   return (
     <HeaderContainer>
       <Box display="flex" alignItems="center">
@@ -24,7 +38,7 @@ const LibraryHeader = () => {
         </Typography>
       </Box>
       <HeaderAddButton>
-        <AddIcon />
+        <AddIcon onClick={handleCreatePlaylist} />
       </HeaderAddButton>
     </HeaderContainer>
   );
