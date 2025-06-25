@@ -19,6 +19,7 @@ import ErrorMessage from "../../components/common/components/ErrorMessage";
 import DesktopPlaylistItem from "./components/DesktopPlaylistItem";
 import { PAGE_LIMIT } from "../../configs/commonConfig";
 import { useInView } from "react-intersection-observer";
+import EmptyPlaylistSearch from "./components/EmptyPlaylistSearch";
 
 const PlaylistHeader = styled(Grid)({
   display: "flex",
@@ -138,8 +139,8 @@ const PlaylistDetailPage = () => {
           </Box>
         </Grid>
       </PlaylistHeader>
-      {playlist?.tracks?.total === 0 ? (
-        <Typography>Search</Typography>
+      {playlist?.tracks?.total === 0 ? ( // 플레이리스트가 빈 경우
+        <EmptyPlaylistSearch />
       ) : (
         <StyledTableContainer>
           <Table>
