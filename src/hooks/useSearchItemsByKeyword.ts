@@ -13,6 +13,7 @@ const useSearchItemsByKeyword = (params: SearchRequestParams) => {
       if (!token) throw new Error("no token availbale in Keyword");
       return searchItemsByKeyword(token, { ...params, offset: pageParam });
     },
+    enabled: !!params.q, // 검색전 api 호출 방지
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
       const nextPageUrl =
